@@ -20,11 +20,11 @@ dapply <- dataset[foto_mes == 202109] # defino donde voy a aplicar el modelo
 modelo <- rpart(
         formula = "clase_ternaria ~ .",
         data = dtrain, # los datos donde voy a entrenar
-        xval = 0,
-        cp = 0.05, # esto significa no limitar la complejidad de los splits
-        minsplit = 10, # minima cantidad de registros para que se haga el split
-        minbucket = 5, # tamaño minimo de una hoja, tiene que ser por lo menos la mitad de minsplit
-        maxdepth = 10
+        xval = 5,
+        cp = -0.08418219683, # esto significa no limitar la complejidad de los splits
+        minsplit = 909, # minima cantidad de registros para que se haga el split
+        minbucket = 453, # tamaño minimo de una hoja, tiene que ser por lo menos la mitad de minsplit
+        maxdepth = 3
 ) # profundidad maxima del arbol
 
 pdf('Arbolito.pdf')

@@ -11,21 +11,19 @@ require("lightgbm")
 # defino los parametros de la corrida, en una lista, la variable global  PARAM
 #  muy pronto esto se leera desde un archivo formato .yaml
 PARAM <- list()
-PARAM$experimento <- "KA4540"
+PARAM$experimento <- "KA4540-8"
 
 PARAM$input$dataset <- "./datasets/dataset_pequeno.csv"
 PARAM$input$training <- c(202107) # meses donde se entrena el modelo
 PARAM$input$future <- c(202109) # meses donde se aplica el modelo
 
 
-PARAM$finalmodel$num_iterations <- 1000 #numero de arbol
-PARAM$finalmodel$learning_rate <- 0.015 
-PARAM$finalmodel$feature_fraction <- 0.5 #% de columnas que toma
-PARAM$finalmodel$min_data_in_leaf <- 1000 # min bucket
-PARAM$finalmodel$num_leaves <- 100 #numeros hojas
-
-
-PARAM$finalmodel$max_bin <- 31
+PARAM$finalmodel$num_iterations <- 273 #numero de arbol
+PARAM$finalmodel$learning_rate <- 0.04361134138
+PARAM$finalmodel$feature_fraction <- 0.7923565401 #% de columnas que toma
+PARAM$finalmodel$min_data_in_leaf <- 1215 # min bucket
+PARAM$finalmodel$num_leaves <- 742 #numeros hojas
+PARAM$finalmodel$max_bin <- 16
 
 #------------------------------------------------------------------------------
 #------------------------------------------------------------------------------
@@ -33,7 +31,7 @@ PARAM$finalmodel$max_bin <- 31
 setwd("~/buckets/b1")
 
 # cargo MI semilla, que esta en MI bucket
-tabla_semillas <- fread( "./datasets//mis_semillas.txt" )
+tabla_semillas <- fread( "./datasets/mis_semillas.txt" )
 ksemilla_azar <- tabla_semillas[ 1, semilla ]  # 1 es mi primer semilla
 
 

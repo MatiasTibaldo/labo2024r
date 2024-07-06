@@ -198,7 +198,7 @@ EstimarGanancia_ranger <- function(x) {
 setwd("~/buckets/b1/") # Establezco el Working Directory
 
 # cargo MI semilla, que esta en MI bucket
-tabla_semillas <- fread( "./datasets//mis_semillas.txt" )
+tabla_semillas <- fread( "./datasets/mis_semillas.txt" )
 ksemilla_azar1 <- tabla_semillas[ 1, semilla ]  # 1 es mi primer semilla
 ksemilla_azar2 <- tabla_semillas[ 2, semilla ]  # 2 es mi segunda semilla
 
@@ -284,3 +284,4 @@ if (!file.exists(kbayesiana)) {
 } else {
   run <- mboContinue(kbayesiana)
 } # retomo en caso que ya exista
+

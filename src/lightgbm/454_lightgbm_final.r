@@ -16,12 +16,12 @@
       PARAM$input$training <- c(202107) # meses donde se entrena el modelo
       PARAM$input$future <- c(202109) # meses donde se aplica el modelo
       
-      PARAM$finalmodel$num_iterations <- 102 #numero de arbol
-      PARAM$finalmodel$learning_rate <- 0.03181905746
-      PARAM$finalmodel$feature_fraction <- 0.5353721507 #% de columnas que toma
-      PARAM$finalmodel$min_data_in_leaf <- 779 # min bucket
-      PARAM$finalmodel$num_leaves <- 363 #numeros hojas
-      PARAM$finalmodel$max_bin <- 318
+      PARAM$finalmodel$num_iterations <- 616 #numero de arbol
+      PARAM$finalmodel$learning_rate <- 0.02001460771
+      PARAM$finalmodel$feature_fraction <- 0.5144337879 #% de columnas que toma
+      PARAM$finalmodel$min_data_in_leaf <- 102 # min bucket
+      PARAM$finalmodel$num_leaves <- 1663 #numeros hojas
+      PARAM$finalmodel$max_bin <- 31
       
       #------------------------------------------------------------------------------
       #------------------------------------------------------------------------------

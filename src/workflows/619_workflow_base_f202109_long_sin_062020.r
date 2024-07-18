@@ -12,7 +12,7 @@ if( !exists("envg") ) envg <- env()  # global environment
 
 envg$EXPENV <- list()
 envg$EXPENV$bucket_dir <- "~/buckets/b1"
-envg$EXPENV$exp_dir <- "~/buckets/b1/expw/"
+envg$EXPENV$exp_dir <- "~/buckets/b1/expw-sin062020/"
 envg$EXPENV$wf_dir <- "~/buckets/b1/flow/"
 envg$EXPENV$repo_dir <- "~/labo2024r/"
 envg$EXPENV$datasets_dir <- "~/buckets/b1/datasets/"

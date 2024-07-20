@@ -174,7 +174,7 @@ FErf_attributes_base <- function( pinputexps, ratio, desvio)
   param_local$meta$script <- "/src/wf-etapas/z1311_FE_rfatributes.r"
 
   # Parametros de un LightGBM que se genera para estimar la column importance
-  param_local$train$clase01_valor1 <- c( "BAJA+2")
+  param_local$train$clase01_valor1 <- c( "BAJA+2", "BAJA+1")
   param_local$train$training <- c( 202101, 202102, 202103)
 
   # parametros para que LightGBM se comporte como Random Forest
@@ -232,7 +232,7 @@ CN_canaritos_asesinos_base <- function( pinputexps, ratio, desvio)
   param_local$meta$script <- "/src/wf-etapas/z1601_CN_canaritos_asesinos.r"
 
   # Parametros de un LightGBM que se genera para estimar la column importance
-  param_local$train$clase01_valor1 <- c( "BAJA+2")
+  param_local$train$clase01_valor1 <- c( "BAJA+2", "BAJA+1")
   param_local$train$positivos <- c( "BAJA+2")
   param_local$train$training <- c( 202101, 202102, 202103)
   param_local$train$validation <- c( 202105 )
@@ -264,20 +264,20 @@ TS_strategy_base9 <- function( pinputexps )
   param_local$future <- c(202109)
 
   param_local$final_train$undersampling <- 1.0
-  param_local$final_train$clase_minoritaria <- c("BAJA+2")
+  param_local$final_train$clase_minoritaria <- c( "BAJA+1", "BAJA+2")
   param_local$final_train$training <- c(202107, 202106, 202103, 202102,
-    202011, 202010)
+    202011, 2020210, 202007, 202005)
 
 
-  param_local$train$training <- c(202105, 202104, 202101, 202012, 
-                                  202009, 202008)
+  param_local$train$training <- c(202105, 202104, 202101, 202012,
+    202009, 202008, 202004, 202003)
   param_local$train$validation <- c(202106)
   param_local$train$testing <- c(202107)
 
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling
   param_local$train$undersampling <- 0.2
-  param_local$train$clase_minoritaria <- c("BAJA+2")
+  param_local$train$clase_minoritaria <- c( "BAJA+1", "BAJA+2")
 
   return( exp_correr_script( param_local ) ) # linea fija
 }
@@ -296,7 +296,7 @@ HT_tuning_base <- function( pinputexps, bypass=FALSE)
   # En caso que se haga cross validation, se usa esta cantidad de folds
   param_local$lgb_crossvalidation_folds <- 5
 
-  param_local$train$clase01_valor1 <- c( "BAJA+2")
+  param_local$train$clase01_valor1 <- c( "BAJA+2", "BAJA+1")
   param_local$train$positivos <- c( "BAJA+2")
   param_local$train$gan1 <- 117000
   param_local$train$gan0 <-  -3000
@@ -364,7 +364,7 @@ FM_final_models_lightgbm <- function( pinputexps, ranks, qsemillas )
   # Que modelos quiero, segun su iteracion_bayesiana de la Bayesian Optimizacion, SIN ordenar
   param_local$modelos_iteracion <- c()
 
-  param_local$train$clase01_valor1 <- c( "BAJA+2")
+  param_local$train$clase01_valor1 <- c( "BAJA+2", "BAJA+1")
   param_local$train$positivos <- c( "BAJA+2")
 
   # default 20 semillas

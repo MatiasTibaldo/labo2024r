@@ -279,7 +279,7 @@ TS_strategy_base9 <- function( pinputexps )
     201903, 201902, 201901
     )
   param_local$train$validation <- c(202106, 202105)
-  param_local$train$testing <- c(202107)
+  param_local$train$testing <- c(202107, 202012, 201910)
 
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling

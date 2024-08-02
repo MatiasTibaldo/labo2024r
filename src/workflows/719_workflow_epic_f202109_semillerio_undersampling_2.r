@@ -181,7 +181,7 @@ FErf_attributes_base <- function( pinputexps, ratio, desvio)
   param_local$lgb_param <- list(
     # parametros que se pueden cambiar
     num_leaves  = 50,
-    min_data_in_leaf = 150,
+    min_data_in_leaf = 300,
     feature_fraction_bynode  = 0.5,
 
     # para que LightGBM emule Random Forest
@@ -268,10 +268,10 @@ TS_strategy_base9 <- function( pinputexps )
     202101, 202012)
 
 
-  param_local$train$training <- c(202105, 202104, 202103, 202102, 202101,
+  param_local$train$training <- c(202104, 202103, 202102, 202101,
     202012, 202011, 202010)
-  param_local$train$validation <- c(202106, 202107)
-  param_local$train$testing <- c(202108)
+  param_local$train$validation <- c(202106, 202105)
+  param_local$train$testing <- c(202107)
 
 
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
@@ -302,7 +302,7 @@ HT_tuning_epic <- function( pinputexps, bypass=FALSE)
   param_local$train$gan0 <-  -3000
   param_local$train$meseta <- 2001
   param_local$train$repeticiones_exp <- 1
-  param_local$train$semillerio <- 20  # 1 es no usar semillerio en la Bayesian Optimi
+  param_local$train$semillerio <- 10  # 1 es no usar semillerio en la Bayesian Optimi
 
   # Hiperparametros  del LightGBM
   #  los que tienen un solo valor son los que van fijos
@@ -323,7 +323,7 @@ HT_tuning_epic <- function( pinputexps, bypass=FALSE)
     lambda_l1 = 0.0, # lambda_l1 >= 0.0
     lambda_l2 = 0.0, # lambda_l2 >= 0.0
     max_bin = 31L, # lo debo dejar fijo, no participa de la BO
-    num_iterations = 3000, # un numero muy grande, lo limita early_stopping_rounds
+    num_iterations = 5000, # un numero muy grande, lo limita early_stopping_rounds
 
     bagging_fraction = 1.0, # 0.0 < bagging_fraction <= 1.0
     pos_bagging_fraction = 1.0, # 0.0 < pos_bagging_fraction <= 1.0
@@ -337,11 +337,11 @@ HT_tuning_epic <- function( pinputexps, bypass=FALSE)
 
     extra_trees = FALSE,
     # Parte variable
-    learning_rate = c( 0.01, 1.0 ),
-    feature_fraction = c( 0.05, 0.1 ),
+    learning_rate = c( 0.01, 0.5 ),
+    feature_fraction = c( 0.05, 0.3 ),
 
     leaf_size_log = c( -8, 2),   # deriva en min_data_in_leaf
-    coverage_log = c( -8, -1 )      # deriva en num_leaves
+    coverage_log = c( -8, 0 )      # deriva en num_leaves
   )
 
 

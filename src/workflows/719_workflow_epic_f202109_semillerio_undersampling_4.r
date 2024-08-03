@@ -181,15 +181,15 @@ FErf_attributes_base <- function( pinputexps, ratio, desvio)
   param_local$lgb_param <- list(
     # parametros que se pueden cambiar
     num_iterations = 30,
-    num_leaves  = 20,
-    min_data_in_leaf = 2000,
-    feature_fraction_bynode  = 0.5,
+    num_leaves  = 100,
+    min_data_in_leaf = 5000,
+    feature_fraction_bynode  = 0.25,
 
     # para que LightGBM emule Random Forest
     boosting = "rf",
     bagging_fraction = ( 1.0 - 1.0/exp(1.0) ),
     bagging_freq = 1.0,
-    feature_fraction = 1.0,
+    feature_fraction = 0.15,
 
     # genericos de LightGBM
     max_bin = 31L,
@@ -280,7 +280,7 @@ TS_strategy_base9 <- function( pinputexps )
 
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling
-  param_local$train$undersampling <- 0.7
+  param_local$train$undersampling <- 0.8
   param_local$train$clase_minoritaria <- c( "BAJA+1", "BAJA+2")
 
   return( exp_correr_script( param_local ) ) # linea fija
@@ -345,7 +345,7 @@ HT_tuning_epic <- function( pinputexps, bypass=FALSE)
     feature_fraction = c( 0.05, 0.3 ),
 
     leaf_size_log = c( -8, 5),   # deriva en min_data_in_leaf
-    coverage_log = c( -8, 2 )      # deriva en num_leaves
+    coverage_log = c( -12, -4 )      # deriva en num_leaves
   )
 
 

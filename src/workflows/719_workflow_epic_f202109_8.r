@@ -113,7 +113,7 @@ DR_drifting_base <- function( pinputexps, metodo)
   if( -1 == (param_local <- exp_init())$resultado ) return( 0 ) # linea fija
 
 
-  param_local$meta$script <- "/src/wf-etapas/1401_DR_corregir_drifting.r"
+  param_local$meta$script <- "/src/wf-etapas/z1401_DR_corregir_drifting.r"
 
   # valores posibles
   #  "ninguno", "rank_simple", "rank_cero_fijo", "deflacion", "estandarizar"
@@ -140,19 +140,13 @@ FEhist_base <- function( pinputexps)
   # no me engraso las manos con las tendencias
   param_local$Tendencias1$run <- TRUE  # FALSE, no corre nada de lo que sigue
   param_local$Tendencias1$ventana <- 6
-  param_local$Tendencias1$tendencia <- FALSE # ==> Recomendación Experimentos Colaborativos (Astegiano)
+  param_local$Tendencias1$tendencia <- TRUE
   param_local$Tendencias1$minimo <- FALSE
   param_local$Tendencias1$maximo <- FALSE
   param_local$Tendencias1$promedio <- FALSE
   param_local$Tendencias1$ratioavg <- FALSE
-  param_local$Tendencias1$ratiomax <- TRUE # ==> Recomendación Experimentos Colaborativos (Astegiano)
-  param_local$Tendencias1$ema <- TRUE # ==> Recomendación Experimentos Colaborativos (Astegiano)
-  param_local$Tendencias1$bbwp <- TRUE # ==> Recomendación Experimentos Colaborativos (Astegiano)
-  param_local$Tendencias1$bbwp_ventana <- 7 # ==> Recomendación Experimentos Colaborativos (Astegiano)
-  
-  # Agrego delta Lags de 2do orden para tendencias seleccionadas:
-  param_local$delta_lags2_ema <- TRUE
-  
+  param_local$Tendencias1$ratiomax <- FALSE
+
   # no me engraso las manos con las tendencias de segundo orden
   param_local$Tendencias2$run <- FALSE
   param_local$Tendencias2$ventana <- 12
@@ -186,10 +180,10 @@ FErf_attributes_base <- function( pinputexps, ratio, desvio)
   # parametros para que LightGBM se comporte como Random Forest
   param_local$lgb_param <- list(
     # parametros que se pueden cambiar
-    num_iterations = 20,
-    num_leaves  = 40,
-    min_data_in_leaf = 100,
-    feature_fraction_bynode  = 0.1,
+    num_iterations = 30,
+    num_leaves  = 20,
+    min_data_in_leaf = 1000,
+    feature_fraction_bynode  = 0.25,
 
     # para que LightGBM emule Random Forest
     boosting = "rf",
@@ -242,7 +236,7 @@ CN_canaritos_asesinos_base <- function( pinputexps, ratio, desvio)
   param_local$train$positivos <- c( "BAJA+2")
   param_local$train$training <- c( 202101, 202102, 202103)
   param_local$train$validation <- c( 202105 )
-  param_local$train$undersampling <- 0.3
+  param_local$train$undersampling <- 0.1
   param_local$train$gan1 <- 117000
   param_local$train$gan0 <-  -3000
 
@@ -280,11 +274,10 @@ TS_strategy_base9 <- function( pinputexps )
   
   param_local$train$validation <- c(202105)
   param_local$train$testing <- c(202106,202107)
-  
 
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling
-  param_local$train$undersampling <- 0.7
+  param_local$train$undersampling <- 0.3
   param_local$train$clase_minoritaria <- c( "BAJA+1", "BAJA+2")
 
   return( exp_correr_script( param_local ) ) # linea fija
@@ -434,17 +427,17 @@ wf_septiembre <- function( pnombrewf )
   param_local <- exp_wf_init( pnombrewf ) # linea fija
 
   DT_incorporar_dataset_competencia2024()
-  CA_catastrophe_base( metodo="MachineLearning")
+  CA_catastrophe_base( metodo="Ninguno")
   FEintra_manual_base()
-  DR_drifting_base(metodo="dolarb")
+  DR_drifting_base(metodo="rank_cero_fijo")
   FEhist_base()
   FErf_attributes_base()
-  CN_canaritos_asesinos_base(ratio=0.2, desvio=0.5)
-  
+  # CN_canaritos_asesinos_base(ratio=0.2, desvio=0.5)
+
   ts9 <- TS_strategy_base9()
   ht <- HT_tuning_epic()
 
-  fm <- FM_final_models_lightgbm_semillerio( c(ht, ts9), ranks=c(1), semillerio=20, repeticiones_exp=3 )
+  fm <- FM_final_models_lightgbm_semillerio( c(ht, ts9), ranks=c(1), semillerio=20, repeticiones_exp=5 )
   SC_scoring_semillerio( c(fm, ts9) )
   KA_evaluate_kaggle_semillerio()
 

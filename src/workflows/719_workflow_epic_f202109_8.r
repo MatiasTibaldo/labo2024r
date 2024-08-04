@@ -182,7 +182,7 @@ FErf_attributes_base <- function( pinputexps, ratio, desvio)
     # parametros que se pueden cambiar
     num_iterations = 30,
     num_leaves  = 20,
-    min_data_in_leaf = 1000,
+    min_data_in_leaf = 3000,
     feature_fraction_bynode  = 0.25,
 
     # para que LightGBM emule Random Forest
@@ -265,19 +265,22 @@ TS_strategy_base9 <- function( pinputexps )
 
   param_local$final_train$undersampling <- 1.0
   param_local$final_train$clase_minoritaria <- c( "BAJA+1", "BAJA+2")
-  param_local$final_train$training <- c(202107, 202106, 202105, 202104, 202103, 
-                                        202102,202101,201912,201911)
+  param_local$final_train$training <- c(
+    202107, 202106, 202105, 202102, 202101, 202012,
+    202004, 202003, 202002, 201911, 201910, 201909
+  )
   
   
-  param_local$train$training <- c(202104, 202103, 202102, 202101,201912,
-                                  201911,201909,201908,201907)
+  param_local$train$training <- c(
+    202104, 202103, 202102, 202011, 202010, 202009,
+    202001, 201912, 201911, 201908, 201907, 201906
+  )
+  param_local$train$validation <- c(202106, 202105)
+  param_local$train$testing <- c(202107)
   
-  param_local$train$validation <- c(202105)
-  param_local$train$testing <- c(202106,202107)
-
   # Atencion  0.2  de  undersampling de la clase mayoritaria,  los CONTINUA
   # 1.0 significa NO undersampling
-  param_local$train$undersampling <- 0.3
+  param_local$train$undersampling <- 0.8
   param_local$train$clase_minoritaria <- c( "BAJA+1", "BAJA+2")
 
   return( exp_correr_script( param_local ) ) # linea fija
@@ -429,7 +432,7 @@ wf_septiembre <- function( pnombrewf )
   DT_incorporar_dataset_competencia2024()
   CA_catastrophe_base( metodo="Ninguno")
   FEintra_manual_base()
-  DR_drifting_base(metodo="rank_cero_fijo")
+  DR_drifting_base(metodo="ninguno")
   FEhist_base()
   FErf_attributes_base()
   # CN_canaritos_asesinos_base(ratio=0.2, desvio=0.5)
@@ -437,7 +440,7 @@ wf_septiembre <- function( pnombrewf )
   ts9 <- TS_strategy_base9()
   ht <- HT_tuning_epic()
 
-  fm <- FM_final_models_lightgbm_semillerio( c(ht, ts9), ranks=c(1), semillerio=20, repeticiones_exp=5 )
+  fm <- FM_final_models_lightgbm_semillerio( c(ht, ts9), ranks=c(1), semillerio=100, repeticiones_exp=10 )
   SC_scoring_semillerio( c(fm, ts9) )
   KA_evaluate_kaggle_semillerio()
 
